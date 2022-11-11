@@ -10,11 +10,11 @@ const thoughtSchema = new Schema(
         },
         createdAt: {
             type: Date,
-            default: Date.now
-        },
-        get:() =>{
-            let date = new Date();
-            return date.toLocaleString();
+            default: Date.now,
+            get:(date) =>{
+                let date = new Date();
+                return date.toLocaleString();
+            }
         },
         username: { type: String, required: true },
         reactions: [reactionSchema],
