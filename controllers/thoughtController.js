@@ -1,5 +1,7 @@
 const { User, Thought } = require('../models')
 
+// TODO: PUSH THOUGHT TO USER ARRAY FOR CREATE ROUTE
+
 module.exports = {
 
     //get all thoughts
