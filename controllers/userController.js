@@ -56,7 +56,7 @@ module.exports = {
         .catch((err) => res.status(500).json(err));
     },
     // create friend
-    createFriend(req, res) {
+    addFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
             { $addToSet: { friend: req.body } },

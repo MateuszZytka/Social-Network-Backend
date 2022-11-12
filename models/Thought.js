@@ -1,32 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 
 // Schema to create Thoughts model
-const thoughtSchema = new Schema(
-    {
-        thoughtText: {
-            type: String,
-            required: "Text is required",
-            match: '/^.{1,280}$/'
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get:(date) =>{
-                let date = new Date();
-                return date.toLocaleString();
-            }
-        },
-        username: { type: String, required: true },
-        reactions: [reactionSchema],
-    },
-    {
-        toJSON: {
-            virtuals: true,
-            getters: true,
-        },
-        id: false,
-      }
-)
 
 const reactionSchema = new Schema(
     {
@@ -45,16 +19,46 @@ const reactionSchema = new Schema(
         },
         createdAt: {
             type: Date,
-            default: Date.now
-        },
-        get:() =>{
-            let date = new Date();
-            return date.toLocaleString();
-        },
+            default: Date.now,
+            get:(v) =>{
+                const date = new Date(v);
+                return date.toLocaleString();
+            },
+        }
     },
     {
         toJSON: {
           getters: true,
+        },
+        id: false,
+      }
+)
+
+const thoughtSchema = new Schema(
+    {
+        thoughtText: {
+            type: String,
+            required: "Text is required",
+            match: '/^.{1,280}$/'
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get:(v) =>{
+                const date = new Date(v);
+                return date.toLocaleString();
+            }
+        },
+        username: { 
+            type: String, 
+            required: true 
+        },
+        reactions: [reactionSchema],
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true,
         },
         id: false,
       }
