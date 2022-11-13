@@ -13,7 +13,7 @@
 
 ## Description
   
-A script used to acces a database, retrieving data, sending data, updating and deleteing data. 
+A backend web application for a social media platform. Where you can create, update and delete a user, create, update and delete thoughts for the user and create or delete reactions to the thoughts. You can also retrive the data for all user, and thoughts or a single user or single thought. 
   
 ## Installation
   
