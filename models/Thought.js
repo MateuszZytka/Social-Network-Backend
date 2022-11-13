@@ -4,14 +4,10 @@ const { Schema, model, Types } = require('mongoose');
 
 const reactionSchema = new Schema(
     {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
         reactionBody: {
             type: String,
             required: true,
-            match: '/^.{1,280}$/'
+            maxlength: 280,
         },
         username: {
             type: String,
@@ -39,7 +35,7 @@ const thoughtSchema = new Schema(
         thoughtText: {
             type: String,
             required: "Text is required",
-            match: '/^.{1,280}$/'
+            maxlength: 280,
         },
         createdAt: {
             type: Date,
@@ -70,6 +66,6 @@ thoughtSchema.virtual('virtualCOunt').get(function(){
 })
 
 //initialize our Thoughts model
-const Thoughts = model('thoughts', thoughtSchema)
+const Thought = model('thought', thoughtSchema)
 
-module.exports = Thoughts
+module.exports = Thought

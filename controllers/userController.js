@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models')
+const { User } = require('../models')
 
 // TODO: FIX CREATE AND DELETE FRIEND
 
@@ -50,16 +50,18 @@ module.exports = {
         .then((User) =>
           !User
             ? res.status(404).json({ message: 'No User with that ID' })
-            : User.deleteMany({ _id: { $in: User.Thoughts } })
+            : User.deleteMany({ _id: { $in: User.thoughts } })
         )
         .then(() => res.json({ message: 'Users and Thoughts deleted!' }))
         .catch((err) => res.status(500).json(err));
     },
     // create friend
     addFriend(req, res) {
+        console.log(req.params.friendId)
+        console.log(req.params.userId)
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $addToSet: { friend: req.body } },
+            { $addToSet: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         )
             .then((User) =>
@@ -72,9 +74,10 @@ module.exports = {
     },
     // delete friend
     deleteFriend(req, res) {
+        
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friend: { ThoughtId: req.params.friendId} } },
+            { $pull: { friends: req.params.friendId} },
             { runValidators: true, new: true }
         )
             .then((User) =>
